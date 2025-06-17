@@ -1,0 +1,36 @@
+ What is a Bean?
+A bean is just an object created and managed by Spring's IoC (Inversion of Control) container.
+| Annotation        | Purpose                                                                     |
+| ----------------- | --------------------------------------------------------------------------- |
+| `@Component`      | Generic stereotype for any Spring-managed component (bean).                 |
+| `@Service`        | Specialization of `@Component` for service-layer classes (business logic).  |
+| `@Repository`     | Specialization of `@Component` for DAO layer, interacts with the database.  |
+| `@Controller`     | Used to define web controller in MVC; handles user requests.                |
+| `@RestController` | Same as `@Controller` + `@ResponseBody` — returns JSON/XML instead of view. |
+| `@Entity`         | Marks a class as a JPA entity (maps to a DB table).                         |
+
+*Spring MVC Flow
+Client → Controller → Service → Repository → Database
+
+IoC Container (ApplicationContext): Manages object creation and lifecycle.
+Beans: All the objects managed by Spring.
+Dependency Injection: Injecting required dependencies (beans) into classes automatically.
+@Autowired: Automatically wires bean by type.
+@Qualifier("productService1"): Used when multiple beans of the same type exist — tells Spring which one to use.
+
+Singleton (default): Only one object of each bean is created and reused.
+**Tight vs Loose Coupling
+Tight: A a = new A(); (manual creation, hard to change)
+Loose: @Autowired A a; (flexible, managed by Spring)
+
+///bean also manage by @configuration
+@Cofiguration
+public claass AccountConfig{
+@Bean
+public AccountService getAccountService(){
+AccountService ac = new AccountService();
+return new Accountservive();
+}
+}
+class AccountService{
+}
