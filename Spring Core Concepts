@@ -25,7 +25,8 @@ Singleton (default): Only one object of each bean is created and reused.
 Tight: A a = new A(); (manual creation, hard to change)
 Loose: @Autowired A a; (flexible, managed by Spring)
 
-///bean also manage by @configuration
+***different ways to create a Bean in Spring Boot**
+///By creating Configure class an assigning Bean annotation before the function
 @Cofiguration
 public claass AccountConfig{
 @Bean
@@ -36,3 +37,20 @@ return new Accountservive();
 }
 class AccountService{
 }
+//By Annotation
+@AnnotationName // @Service, @Component, @Controller,
+@RestController or @Repository
+class Car{
+private String name;
+private int miles;
+Car(String name, int miles){
+this.name = name;
+this.miles = miles;
+}
+public void displayInfo(){
+System.out.println("This is a car Named " + name + "Having
+Miles " + miles);
+}// those who needs the car object will have it
+}// this Car class object now will be created and stored inside of IOC container
+
+
