@@ -7,8 +7,9 @@ Dependencies:
 2.Spring Data JPA
 3.MySQL Driver
 **Click Generate ZIP, unzip the file.
-💻 2. Open Project in IntelliJ
-Go to File → Open, select the unzipped folder.
+Zip file ->choose file->Unzip
+open intilij->open file ->select folder 
+src->appliaction.java->database connect->src->resource->appliaction propertice
 **** Database Configuration (MySQL)***
 spring.application.name=student-info
 spring.datasource.url=jdbc:mysql://localhost:3306/student_info
@@ -17,3 +18,20 @@ spring.datasource.password=
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update  //creates/updates table based on entity class
 spring.jpa.show-sql=true              // prints SQL queries in the console
+
+
+**Entity & Repository Example**
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+}
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Long> {
+}
+**Entity number=repository number
+Repository extend jpaRepository**
+
+
