@@ -8,6 +8,8 @@ A bean is just an object created and managed by Spring's IoC (Inversion of Contr
 | `@Controller`     | Used to define web controller in MVC; handles user requests.                |
 | `@RestController` | Same as `@Controller` + `@ResponseBody` — returns JSON/XML instead of view. |
 | `@Entity`         | Marks a class as a JPA entity (maps to a DB table).                         |
+| 	@Bean	           |Declare Spring-managed bean (e.g. read data from DB)                         |
+|  @PostConstruct   |	Runs once after app starts                                                  |
 
 *Spring MVC Flow
 Client → Controller → Service → Repository → Database
