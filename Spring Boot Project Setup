@@ -1,0 +1,19 @@
+Spring Initializr Configuration
+Project: Maven
+Language: Java
+Packaging: Jar
+Dependencies:
+1.Spring Web
+2.Spring Data JPA
+3.MySQL Driver
+**Click Generate ZIP, unzip the file.
+💻 2. Open Project in IntelliJ
+Go to File → Open, select the unzipped folder.
+**** Database Configuration (MySQL)***
+spring.application.name=student-info
+spring.datasource.url=jdbc:mysql://localhost:3306/student_info
+spring.datasource.username=root
+spring.datasource.password= 
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update  //creates/updates table based on entity class
+spring.jpa.show-sql=true              // prints SQL queries in the console
