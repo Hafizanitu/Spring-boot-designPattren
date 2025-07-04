@@ -48,5 +48,32 @@ Service: Contains business logic. It calls repository methods and processes data
 Controller: Handles incoming HTTP requests (like GET, POST) and calls the service to get or save data. Uses annotations like @RestController, @GetMapping, etc.
 Together, this follows the MVC pattern (Model-View-Controller) where the Controller handles the web layer, Service the logic layer, and Repository the data layer.
 
-Controller handle user request as API*****
-1.
+API calling in JAVA*****
+1.Get: means showing value. Method is declared inside the Controller class and before
+method there is @GetMapping annotation and after Get Mapping annotation there is
+the link of Get API. Example:
+@GetMapping("/users")
+public List<User> getAllUsers() {
+    return userService.getAllUsers();
+}
+Now if we hit http://localhost:8080/student/homepage it will show Welcome to student
+Page
+2.POST: Means sending (inserting) new data
+@PostMapping("/users")
+public User createUser(@RequestBody User user) {
+    return userService.createUser(user);
+}
+3.PUT: Means updating existing data. The method is declared with the @PutMapping
+annotation. Used when we want to update an existing student. 
+@PutMapping("/users/{id}")
+public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    return userService.updateUser(id, userDetails);
+}
+4.DELETE: Means removing existing data. The method uses @DeleteMapping.
+Used to delete a student by ID or other criteria.
+@DeleteMapping("/users/{id}")
+public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    userService.deleteUser(id);
+    return ResponseEntity.noContent().build();
+}
+
