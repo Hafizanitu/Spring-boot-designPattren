@@ -77,3 +77,51 @@ public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
     return ResponseEntity.noContent().build();
 }
 
+****Simple REST POST API (using controller, service, repository,entity) using Spring Boot***
+
+//Under Controller package:
+StudentController.class
+@RestController
+@AllArgsConstructor
+public class Student {
+ private final StudentService studentService;
+
+ @PostMapping("/student/insert_student")
+ public void insertStudent (@RequestBody StudentDTO studentDTO) { 
+studentService.inserStudent(studentDTO);
+ }
+}
+//Under Service package
+StudentService.Class
+@Service
+@RequiredArgsConstructor
+public class StudentService {
+ private final StudentRepo studentRepo;
+ public void inserStudent(StudentDTO studentDTO){
+ Student student = new Student();
+ student.setName(studentDTO.getName());
+ student.setAddress(studentDTO.getAddress());
+ studentRepo.save(student);
+ }
+}
+//Under Repository package
+StudentRepo.interface
+@Repository
+public interface StudentRepo extends JpaRepository<Student, Integer> {
+}
+//Under Entity Package:
+Student.class
+@Entity
+@Getter
+@Setter
+s Student {
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ private int id;
+ private String name;
+ private String address;
+} 
+
+
+
+
