@@ -53,4 +53,30 @@ Miles " + miles);
 }// those who needs the car object will have it
 }// this Car class object now will be created and stored inside of IOC container
 
+ACID Principles in Database Transactions:
+ACID ensures that transactions are processed reliably in a database system.
+
+🔹 A – Atomicity
+A transaction is treated as a single unit.All steps must complete successfully, or none at all.If one step fails → the entire transaction is rolled back.
+Ensures no partial updates occur.
+🛠 Example (Git Analogy):
+Imagine a feature branch being merged to the main branch.Before merge, it must pass all checks: code review, tests, approvals.
+If one fails, merge is rejected → similar to rollback.Only when all steps succeed, changes are committed to main.
+🔹 C – Consistency
+A transaction brings the database from one valid state to another.
+All defined rules and constraints (like foreign keys, data types) must be respected before and after the transaction.Ensures data integrity.
+🔹 I – Isolation
+Ensures transactions are executed independently, even when run concurrently.Prevents interference between transactions.Isolation Levels (from low to high):
+Level	Description	Problem it Allows
+1.Read Uncommitted	Can read uncommitted (dirty) data	Dirty Reads
+2.Read Committed	Only reads committed data	Non-Repeatable Reads
+3.Repeatable Read	Same data read multiple times → stays the same	Phantom Reads (but no non-repeatable)
+4.Serializable	Highest level – full isolation like queue system.Prevents all issues
+⚠ Common Issues in Isolation:
+Dirty Read: Read uncommitted changes of another transaction.
+Non-repeatable Read: Data changes between reads in the same transaction.
+Phantom Read: New rows added by another transaction appear in re-queries.
+🔹 D – Durability
+Once a transaction is committed, the data is saved permanently.Survives system crashes, power loss, etc.Changes are written to non-volatile storage (like disk or SSD)
+
 
