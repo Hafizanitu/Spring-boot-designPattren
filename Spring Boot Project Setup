@@ -122,6 +122,42 @@ s Student {
  private String address;
 } 
 
+**********Spring Security Setup:
+In pom.xml-Copy
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+create new package in main file as config under class as SecurityConfig
+@Configuration
+public class SecurityConfig {
+
+    // 1. In-memory or custom user details service
+    @Bean
+    public UserDetailsService userDetailsService() {
+        // return new InMemoryUserDetailsManager(...);
+        // or custom UserDetailsService
+    }
+
+    // 2. Main security filter chain
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable()) // Optional
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/public/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
+            )
+            .formLogin(Customizer.withDefaults())
+            .httpBasic(Customizer.withDefaults());
+
+        return http.build();
+    }
+}
+
+
 
 
 
