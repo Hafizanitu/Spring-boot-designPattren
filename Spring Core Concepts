@@ -79,4 +79,131 @@ Phantom Read: New rows added by another transaction appear in re-queries.
 🔹 D – Durability
 Once a transaction is committed, the data is saved permanently.Survives system crashes, power loss, etc.Changes are written to non-volatile storage (like disk or SSD)
 
+ *****Composition Over Inheritance***
+Composition is a design principle where one class contains an object of another class to reuse its behavior, rather than inheriting from it.Use inheritance when classes are in an "is-a" relationship (e.g., Dog is a Animal), and use composition when classes are in a "has-a" or "uses-a" relationship.
+In modern object-oriented design, composition is generally favored for flexibility and better code maintenance.Follows SOLID Principles	Especially Open/Closed and Single Responsibility
+class Engine {
+    void start() {
+        System.out.println("Engine started");
+    }
+}
 
+class Car {
+    private Engine engine;
+
+    Car() {
+        engine = new Engine();  // Composition
+    }
+
+    void drive() {
+        engine.start();
+        System.out.println("Car is driving");
+    }
+}
+
+
+SOLID is an acronym for five core principles that help developers write clean, maintainable, and scalable code.
+🔹 S – Single Responsibility Principle (SRP)
+“A class should have only one reason to change.”A class should focus on one job or responsibility.
+Why? It makes the code easier to manage, test, and maintain.
+✅ Example: A User class should not handle user data and sending emails. Create a separate EmailService.
+🔹 O – Open/Closed Principle (OCP)
+“Software entities should be open for extension but closed for modification.”You can extend a class’s behavior without modifying its existing code.
+Helps in adding new features without touching tested and working code.
+✅ Example: Instead of changing an existing class to add payment types, use inheritance or interface to extend new payment methods.
+interface Payment {
+    void pay();
+}
+class CreditCardPayment implements Payment {
+    public void pay() {
+        System.out.println("Paying by credit card");
+    }
+}
+🔹 L – Liskov Substitution Principle (LSP)
+“Objects of a superclass should be replaceable with objects of a subclass without breaking the application.” Subclasses should behave like the parent class without unexpected behavior.
+✅ Example: If class Bird has fly(), then a subclass Penguin shouldn’t break the logic (since penguins can’t fly). So Penguin should not inherit Bird.
+🔹 I – Interface Segregation Principle (ISP)
+“Clients should not be forced to depend on interfaces they do not use.”Split large interfaces into smaller, more specific ones.
+✅ Example: Don’t make one big interface Animal with walk(), fly(), swim().
+Instead, create small interfaces like Walkable, Flyable, Swimmable so classes implement only what they need.
+🔹 D – Dependency Inversion Principle (DIP)
+“High-level modules should not depend on low-level modules. Both should depend on abstractions.”
+Don’t hardcode dependencies. Use interfaces or abstractions.
+Helps with flexibility and testing (e.g., mocking in unit tests).
+✅ Example: Instead of new MySQLDatabase(), depend on a Database interface and inject the actual database later.
+class App {
+    private Database db;
+
+    public App(Database db) {
+        this.db = db; // Inject dependency
+    }
+}
+
+Singleton Pattern
+🔸 What it means:
+Only one object is created from a class. Same object is used everywhere.For things that should only have one instance — like database connection, logger, settings, etc.
+public class MySingleton {
+    private static MySingleton obj;
+
+    private MySingleton() {} // Private constructor
+
+    public static MySingleton getInstance() {
+        if (obj == null) {
+            obj = new MySingleton();
+        }
+        return obj;
+    }
+}
+2️⃣ Strategy Pattern
+
+Change behavior (method) dynamically without changing the class.When you want to choose different logic/algorithm at runtime.
+You want to pay using Bkash, Nagad, or Card.
+interface Payment {
+    void pay();
+}
+
+class Bkash implements Payment {
+    public void pay() {
+        System.out.println("Paying with Bkash");
+    }
+}
+
+class Nagad implements Payment {
+    public void pay() {
+        System.out.println("Paying with Nagad");
+    }
+}
+
+// You can switch between Bkash or Nagad
+3️⃣ Factory Pattern
+
+Create object based on some input, without telling which class to use.To make code cleaner when creating objects based on user input or condition.
+class ShapeFactory {
+    Shape getShape(String type) {
+        if (type.equals("circle")) return new Circle();
+        if (type.equals("square")) return new Square();
+        return null;
+    }
+}
+Instead of writing new Circle() everywhere, you just call getShape("circle").
+4️⃣ Dependency Injection (DI)
+
+Don't create objects inside a class. Instead, send (inject) them from outside.To write clean, testable code.Follows loose coupling (class doesn't depend directly on another class)
+class Engine {
+    void start() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car {
+    Engine engine;
+
+    Car(Engine engine) { // inject engine from outside
+        this.engine = engine;
+    }
+
+    void drive() {
+        engine.start();
+        System.out.println("Car is moving");
+    }
+}
