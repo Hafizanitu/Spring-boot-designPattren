@@ -207,3 +207,33 @@ class Car {
         System.out.println("Car is moving");
     }
 }
+
+System Design: Scaling, Load Balancer, Caching, and DB Replication
+⚙️ 1. Types of Scaling
+Type	Description
+Vertical Scaling	Increase/decrease physical resources (CPU, RAM) of a single server. Simple, but has hardware limits and introduces a Single Point of Failure (SPOF).
+Horizontal Scaling	Add multiple servers to distribute load. More reliable, handles SPOF better, but more complex to manage.
+🔁 2. Single Point of Failure (SPOF)--If the main server fails, the whole system can go down..To prevent SPOF, use horizontal scaling and load balancers.
+🔄 3. Load Balancer-- incoming client requests across multiple servers.Prevents overload on a single server.Private IPs are used for internal communication between servers.
+Load balancing is automated and dynamic in horizontal scaling setups.
+🧠 4. Caching--Reduces database load and speeds up data access.Used for frequently accessed but rarely changed data.Stores pre-computed results for faster retrieval.
+Cache Retrieval Flow:Client request checks cache (fast).
+If not found → fallback to DB.
+Query executed (e.g., joins) → result stored in cache for next time.
+Cache Eviction Policies:
+LRU (Least Recently Used)	Removes the least recently used data first.
+LFU (Least Frequently Used)	Removes data used least frequently.
+FIFO (First-In-First-Out)	Removes oldest inserted data first.
+💾 5. Database Scaling with Replication --When traffic is high, database scaling is expensive.
+Use Replication (Master-Slave model):
+Component	Role
+Master DB	Handles write operations (insert, update, delete). Slave DB(s)	Handle read operations (select), offloading the master.
+Changes in Master DB are synchronously or asynchronously copied (synced) to Slave(s).
+If Master fails, a Slave is promoted to act as Master (failover mechanism).
+🔒 6. Failover Mechanism in DB
+Ensures high availability.Auto-promotion of a Slave if the Master goes down."sink" typically refers to the process or component that receives and applies changes from a source database (usually the master) to another system (like a replica/slave or downstream service)Handled by a monitoring system or tools like:
+Zookeeper
+Consul
+Orchestrator
+
+
